@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://brguihi15a358"]
+
+[ext_resource type="Script" path="res://Scenes/level.gd" id="1_nugn1"]
+[ext_resource type="Texture2D" uid="uid://dd6m2b8o5galw" path="res://PNG/Backgrounds/darkPurple.png" id="1_vqel4"]
+[ext_resource type="PackedScene" uid="uid://c2k71crwqtui6" path="res://Scenes/player.tscn" id="2_q7eia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uali8"]
+size = Vector2(72.75, 732.813)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oycps"]
+size = Vector2(1676, 48)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_nugn1")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(640.625, 350.5)
+scale = Vector2(5.6123, 3.08984)
+texture = ExtResource("1_vqel4")
+
+[node name="player" parent="." instance=ExtResource("2_q7eia")]
+position = Vector2(437, 482)
+
+[node name="borders" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D"]
+position = Vector2(1316, 358.188)
+shape = SubResource("RectangleShape2D_uali8")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D2"]
+position = Vector2(-36, 360.594)
+shape = SubResource("RectangleShape2D_uali8")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D3"]
+position = Vector2(642, -26)
+shape = SubResource("RectangleShape2D_oycps")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="borders"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D4"]
+position = Vector2(637, 745)
+shape = SubResource("RectangleShape2D_oycps")
+
+[node name="meteorTimer" type="Timer" parent="."]
+wait_time = 0.55
+autostart = true
+
+[node name="Meteors" type="Node2D" parent="."]
+
+[connection signal="timeout" from="meteorTimer" to="." method="_on_meteor_timer_timeout"]
